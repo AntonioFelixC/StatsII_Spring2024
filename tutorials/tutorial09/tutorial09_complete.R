@@ -93,3 +93,6 @@ library(pscl)
 
 mod.zip <- zeroinfl(art ~ ., data = long_data, dist = "poisson")
 summary(mod.zip)
+
+AIC (mod.ps,mod2.ps)
+AIC (mod2.ps,mod.zip)

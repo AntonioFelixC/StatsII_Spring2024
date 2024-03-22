@@ -164,8 +164,21 @@ AIC: 16655.56
 
 \end{verbatim}	
 
-\newpage	
-	\item Construct and interpret an ordered multinomial logit with \texttt{GDPWdiff} as the outcome variable, including the estimated cutoff points and coefficients.
+Coefficientes; Each row corresponds to a different outcome category of the response variable
+They represent the change in log odds for a one-unit increase in the respective predictor variable, holding all other variables constant.
+
+REG (Region): The coefficient for each level of the region variable represents the change in the log odds of being in that category compared to the reference category for a one-unit increase in the REG variable while holding other variables constant. For example:
+
+For category 2, an increase of one unit in REG leads to a decrease of approximately 0.63 in the log odds of being in category 2 compared to category 1.
+Similarly, for category 3, an increase of one unit in REG leads to a decrease of approximately 1.32 in the log odds of being in category 3 compared to category 1, and so on for the other categories.
+
+OIL (Presence of Oil Resources): The coefficient for the presence of oil resources variable represents the change in the log odds of being in each category for a one-unit increase in the OIL variable while holding other variables constant. For example:
+
+For category 2, the presence of oil resources leads to a decrease of approximately 1.56 in the log odds of being in category 2 compared to category 1.
+Similarly, for category 3, the presence of oil resources leads to a decrease of approximately 1.65 in the log odds of being in category 3 compared to category 1, and so on for the other categories.
+
+
+\item Construct and interpret an ordered multinomial logit with \texttt{GDPWdiff} as the outcome variable, including the estimated cutoff points and coefficients.
 
 \begin{lstlisting}		
 # Load necessary library
@@ -209,8 +222,16 @@ AIC: 16946.32
 
 \end{verbatim}
 
+Coefficients:
+
+REG (Region): The coefficient represents the change in the log odds of being in a higher GDP change category for a one-unit increase in the REG variable, holding other variables constant. The coefficient for REG is 0.87554, indicating that as the region variable increases by one unit, the log odds of being in a higher GDP change category increase by 0.87554 units.
+
+OIL (Presence of Oil Resources): The coefficient for the presence of oil resources variable represents the change in the log odds of being in a higher GDP change category for a one-unit increase in the OIL variable, holding other variables constant. The coefficient for OIL is 0.04442, indicating that as the presence of oil resources increases by one unit, the log odds of being in a higher GDP change category increase by 0.04442 units.
 
 
+Intercepts:
+
+Each intercept represents the threshold between adjacent categories of the dependent variable. For example, the intercept between categories 1 and 2 is -1.9272, indicating the log odds of being in category 1 versus category 2.
 
 \newpage	
 \section*{Question 2} 
@@ -256,12 +277,82 @@ Number of Fisher Scoring iterations: 6
 
 \end{verbatim}
 
+
+H0 (Null Hypothesis): There is no difference in the number of visits made by PAN presidential candidates between swing districts and safe districts.
+
+H1 (Alternative Hypothesis): PAN presidential candidates visit swing districts more frequently than safe districts.
+
+Test Statistic = -0.1617 / 0.1670 = -0.968
+
+P value for competitive district is 0.333, greater than the typical significance value at 0.05, so, we fail to reject the null hypothesis. Therefore, based on this analysis, there is no statistically significant evidence to suggest that PAN presidential candidates visit swing districts more frequently compared to safe, after controlling for other factors included in the model.
+
 	\item [(b)]
 	Interpret the \texttt{marginality.06} and \texttt{PAN.governor.06} coefficients.
 	
+\begin{lstlisting}
+poisson_modelB <- glm(PAN.visits.06 ~ competitive.district + marginality.06 + PAN.governor.06, 
+data = mexico_elections, family = poisson)
+
+# Summary of the model
+summary(poisson_modelB)
+\end{lstlisting}
+
+\begin{verbatim}
+Coefficients:
+Estimate Std. Error z value Pr(>|z|)    
+(Intercept)          -3.81023    0.22209 -17.156   <2e-16 ***
+competitive.district -0.08135    0.17069  -0.477   0.6336    
+marginality.06       -2.08014    0.11734 -17.728   <2e-16 ***
+PAN.governor.06      -0.31158    0.16673  -1.869   0.0617 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+Null deviance: 1473.87  on 2406  degrees of freedom
+Residual deviance:  991.25  on 2403  degrees of freedom
+AIC: 1299.2
+
+Number of Fisher Scoring iterations: 7	
+\end{verbatim}
+	
+The coefficient for marginality.06 is -2.08014. This indicates that, holding all other variables constant, for each one-unit increase in marginality.06, the expected log count of PAN visits decreases by 2.08014 units. This effect is statistically significant (p-value < 0.001).
+
+The coefficient for PAN.governor.06 is -0.31158. This suggests that, holding all other variables constant, having a PAN governor in 2006 decreases the expected log count of PAN visits by 0.31158 units. However, this effect is marginally significant (p-value = 0.0617), meaning it doesn't quite reach conventional levels of significance (e.g., p < 0.05), but it's close.
+	
 	\item [(c)]
 	Provide the estimated mean number of visits from the winning PAN presidential candidate for a hypothetical district that was competitive (\texttt{competitive.district}=1), had an average poverty level (\texttt{marginality.06} = 0), and a PAN governor (\texttt{PAN.governor.06}=1).
-	
+
+Intercept: -3.81023
+
+competitive.district: -0.08135
+
+marginality.06: -2.08014
+
+PAN.governor.06: -0.31158
+
+log(count)=B0+B1×competitive.district+B2×marginality.06+B3×PAN.governor.
+
+competitive.district = 1
+
+marginality.06 = 0
+
+PAN.governor.06 = 1
+
+We substitute these values into the equation: 
+
+log (count) = + (3.81023) + (0.08135) x 1 + (2.08014) x 0 + (0.31158) x 1
+
+log (count) = + (3.81023) + (0.08135) + (0.31158)
+
+log (count) = (4.20316)
+
+count = e(4.20316)
+
+count = 0.0147
+
+So, the estimated mean number of visits from the winning PAN presidential candidate for the hypothetical district is approximately 0.0147.
+
 \end{enumerate}
 
 \end{document}

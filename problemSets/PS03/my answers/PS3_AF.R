@@ -90,3 +90,11 @@ poisson_model <- glm(PAN.visits.06 ~ competitive.district, data = mexico_electio
 
 # Summary of the model
 summary(poisson_model)
+
+# 2b 
+
+poisson_modelB <- glm(PAN.visits.06 ~ competitive.district + marginality.06 + PAN.governor.06, 
+                     data = mexico_elections, family = poisson)
+
+# Summary of the model
+summary(poisson_modelB)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.1)  17 MAR 2024 11:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.10.1)  22 MAR 2024 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -865,22 +865,22 @@ File: omlcmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 107.
- [2] [3] [4] [5]
-Overfull \hbox (27.95853pt too wide) in paragraph at lines 263--264
+ [2] [3] [4] [5] [6] [7]
+Overfull \hbox (27.95853pt too wide) in paragraph at lines 324--325
 \OT1/cmr/m/n/12 an av-er-age poverty level (\OT1/cmtt/m/n/12 marginality.06 \OT
 1/cmr/m/n/12 = 0), and a PAN gov-er-nor (\OT1/cmtt/m/n/12 PAN.governor.06\OT1/c
 mr/m/n/12 =1). 
  []
 
-[6] (PS3_AF.aux)
+[8] (PS3_AF.aux)
 Package rerunfilecheck Info: File `PS3_AF.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 26320 strings out of 476331
- 464737 string characters out of 5797554
+ 26329 strings out of 476331
+ 464837 string characters out of 5797554
  1995660 words of memory out of 5000000
- 46230 multiletter control sequences out of 15000+600000
+ 46231 multiletter control sequences out of 15000+600000
  523033 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,6n,89p,3240b,1375s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -894,9 +894,9 @@ iKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cms
 y10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on PS3_AF.pdf (6 pages, 138554 bytes).
+Output written on PS3_AF.pdf (8 pages, 147031 bytes).
 PDF statistics:
- 153 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
+ 171 PDF objects out of 1000 (max. 8388607)
+ 65 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
