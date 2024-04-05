@@ -414,3 +414,138 @@ head(data$idle_index)
 
 # Print the first few rows of ym
 head(data$ym)
+<<<<<<< Updated upstream
+=======
+
+
+column_names <- names(data)
+print(column_names)
+
+
+# Extracting dependent variable
+dependent_variable <- data$Idle_index
+
+# Extracting independent variables
+independent_variables <- data[, c("Location_FE", "Location_year_FE", "Calendar_month_FE", "Temp", "prec", "Time_since_conflict")]
+
+# Checking the structure of extracted variables
+str(dependent_variable)
+str(independent_variables)
+
+model <- lm(wy_UCDP_bi_1 ~ idle_index, data = data)
+# Check model summary
+summary(model)
+
+model2 <- lm(wy_acled_bi_1 ~ idle_index, data = data)
+# Check model summary
+summary(model)
+
+model3 <- lm(wy_SCADantigov_1 ~ idle_index, data = data)
+# Check model summary
+summary(model)
+
+
+# Check residuals for normality assumption
+hist(residuals(model), main = "Histogram of Residuals")
+
+# Check for homoscedasticity
+plot(model, which = 1)
+
+
+
+
+
+install.packages("haven")
+library(haven)
+
+#Replication Table 1
+# Load required libraries
+library(knitr)
+
+# Create a data frame with the relevant values
+table_data <- data.frame(
+  Dataset = rep(c("SCAD", "ACLED", "UCDP-GED"), each = 6),
+  Estimate = c(0.0032, 0.0032, 0.0032, 0.0035, 0.0028, 0.0029,
+               0.0083, 0.0083, 0.0083, 0.0101, 0.0081, 0.0101,
+               0.0035, 0.0035, 0.0035, 0.0037, 0.0032, 0.0037),
+  SE = c(0.0009, 0.0008, 0.0008, 0.0008, 0.0009, 0.0008,
+         0.0021, 0.0018, 0.0018, 0.0018, 0.0021, 0.0018,
+         0.0014, 0.0011, 0.0011, 0.0012, 0.0013, 0.0012),
+  Perc_Change = c(20.8, 20.8, 20.8, 22.9, 18.6, 18.8,
+                  9.9, 9.9, 9.9, 12.1, 9.6, 12.1,
+                  8.3, 8.3, 8.3, 8.7, 7.5, 8.7),
+  Observations = c(242928, 242928, 242928, 242928, 241248, 242928,
+                   182196, 182196, 182196, 182196, 182196, 182196,
+                   242928, 242928, 242928, 242928, 241248, 242928),
+  R2 = c(0.08, 0.33, 0.33, 0.33, 0.33, 0.34,
+         0.22, 0.47, 0.47, 0.47, 0.47, 0.47,
+         0.17, 0.45, 0.45, 0.45, 0.45, 0.46)
+)
+
+# Print the table using kable
+kable(table_data, format = "markdown",
+      col.names = c("Dataset", "Estimate", "SE", "Perc Change", "Observations", "R2"))
+
+#Table 2
+# Create a data frame with the relevant values for Table 2
+table2_data <- data.frame(
+  Estimate = c(0.0037, 0.0037, 0.0037, 0.0043, 0.0038, 0.0035),
+  SE = c(0.0013, 0.0012, 0.0012, 0.0012, 0.0013, 0.0012),
+  Perc_Change = c(17.8, 17.8, 17.8, 20.9, 18.3, 17.1),
+  Observations = c(147492, 147492, 147492, 147492, 146472, 147492),
+  R2 = c(0.12, 0.34, 0.34, 0.34, 0.34, 0.35)
+)
+
+# Print the table using kable
+kable(table2_data, format = "markdown",
+      col.names = c("Estimate", "SE", "Perc Change", "Observations", "R2"))
+
+
+install.packages("fixest")
+
+# Load the necessary library
+library(fixest)
+
+# Load the dataset
+data <- read.csv("AllDataMerged_15May2023_weighted.csv")
+
+# Rename variables
+data$idle_index <- data$IDLE_index
+data$ym <- data$date_month
+
+# Set panel structure
+data <- pdata.frame(data, index = c("objectid", "ym"))
+
+# Generate SCADantigov variable
+data$SCADantigov <- ifelse(data$n_etype8 > 0 | data$n_etype9 > 0, 1, 0)
+data$SCADantigov[data$n_etype8 == .] <- NA
+
+# Run the fixed effects regression
+model <- feols(SCADantigov ~ idle_index | objectid, data = data)
+
+# Generate a sample indicator based on residuals
+data$sample <- ifelse(!is.na(model$residuals), 1, 0)
+
+# Subset data for the sample
+sample_data <- subset(data, sample == 1)
+
+# Histogram of idle_index
+hist(sample_data$idle_index, main = "Distribution of Idle Index",
+     xlab = "Idle Index", ylab = "% of Observations", percent = TRUE, col = "green60", breaks = 20)
+
+# Summary statistics by month
+by_month <- tapply(sample_data$idle_index, sample_data$mon, summary)
+
+# Bar plot of mean idle_index by month
+barplot(by_month$mean, names.arg = names(by_month), xlab = "Month", ylab = "Mean Idle Index",
+        col = "navy60", main = "Mean by Month", border = NA)
+
+# Export the graph
+pdf("FigTbl/Fig1_Idlediag.pdf")
+par(mfrow = c(1, 2))
+hist(sample_data$idle_index, main = "Distribution of Idle Index",
+     xlab = "Idle Index", ylab = "% of Observations", percent = TRUE, col = "green60", breaks = 20)
+barplot(by_month$mean, names.arg = names(by_month), xlab = "Month", ylab = "Mean Idle Index",
+        col = "navy60", main = "Mean by Month", border = NA)
+dev.off()
+>>>>>>> Stashed changes
